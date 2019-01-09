@@ -6,6 +6,8 @@
   "scripts": {
     "test": "node_modules/.bin/standard --verbose | snazzy",
     "build": "rimraf dist/ && babel ./**/*.js --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "perimport:data" : "npm run build",
+    "import:data" : "node dist/lib/import.js",
     "preclean:data": "npm run build",
     "clean:data": "node dist/lib/clean.js --projectKey $npm_package_config_projectKey --clientId $npm_package_config_clientId --clientSecret $npm_package_config_clientSecret --apiUrl $npm_package_config_apiUrl --authUrl $npm_package_config_authUrl",
     "import:projectSetup": "./mvnw spring-boot:run  -DprojectCleanUp=false -DprojectSetUp=true -DchannelsImport=true -DcategoryImport=false -DcatalogImport=false -DreserveInStore=false -DordersImport=false -Dctp.projectKey=$npm_package_config_projectKey -Dctp.clientId=$npm_package_config_clientId -Dctp.clientSecret=$npm_package_config_clientSecret -Dctp.authUrl=$npm_package_config_authUrl -Dctp.apiUrl=$npm_package_config_apiUrl -Dctp.protocol=https",

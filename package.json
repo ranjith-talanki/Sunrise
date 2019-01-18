@@ -9,9 +9,9 @@
     "clean:data": "npm run clean:categories && npm run clean:orders && npm run clean:states && npm run clean:customers && npm run clean:shippingmethods && npm run clean:zones && npm run clean:products",
     "preimport:projectSetup": "npm run build",
     "import:projectSetup": "node dist/lib/project-setup.js --projectKey $npm_package_config_projectKey --clientId $npm_package_config_clientId --clientSecret $npm_package_config_clientSecret --apiUrl $npm_package_config_apiUrl --authUrl $npm_package_config_authUrl",
-    "import:categories": "./mvnw spring-boot:run -DprojectCleanUp=false -DprojectSetUp=false -DchannelsImport=false -DcategoryImport=true -DcatalogImport=false -DreserveInStore=false -DordersImport=false -Dctp.projectKey=$npm_package_config_projectKey -Dctp.clientId=$npm_package_config_clientId -Dctp.clientSecret=$npm_package_config_clientSecret -Dctp.authUrl=$npm_package_config_authUrl -Dctp.apiUrl=$npm_package_config_apiUrl -Dctp.protocol=https",
+    "import:categories": "node_modules/.bin/category-sync import -f data/categories.csv -p $npm_package_config_projectKey --clientId $npm_package_config_clientId  --clientSecret $npm_package_config_clientSecret --sphereProtocol https --sphereAuthProtocol https --sphereHost $npm_package_config_apiUrl --sphereAuthHost $npm_package_config_authUrl",
     "preimport:orders": "npm run build",
-    "import:orders": "node dist/lib/orders.js --import --projectKey $npm_package_config_projectKey --clientId $npm_package_config_clientId --clientSecret $npm_package_config_clientSecret --apiUrl $npm_package_config_apiUrl --authUrl $npm_package_config_authUrl",
+    "import:orders": "node dist/lib/orders.js --import --csv ./data/orders.csv --projectKey $npm_package_config_projectKey --clientId $npm_package_config_clientId --clientSecret $npm_package_config_clientSecret --apiUrl $npm_package_config_apiUrl --authUrl $npm_package_config_authUrl",
     "preimport:zones": "npm run build",
     "import:zones": "node dist/lib/zones.js --import --projectKey $npm_package_config_projectKey --clientId $npm_package_config_clientId --clientSecret $npm_package_config_clientSecret --apiUrl $npm_package_config_apiUrl --authUrl $npm_package_config_authUrl",
     "preimport:shippingmethods": "npm run build",
@@ -78,6 +78,7 @@
   },
   "dependencies": {
     "@commercetools/sdk-auth": "^1.5.0",
+    "csvtojson": "^2.0.8",
     "sphere-category-sync": "^1.1.1"
   },
   "engines": {
